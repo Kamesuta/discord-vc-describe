@@ -13,8 +13,8 @@ export interface Config {
    */
   /* eslint-disable @typescript-eslint/naming-convention */
 
-  /** Example of a string setting */
-  some_text_setting: string;
+  /** サーバーID */
+  guild_ids: string[];
 
   /* eslint-enable @typescript-eslint/naming-convention */
 }
@@ -32,8 +32,7 @@ export const config: Config = parse(
   readFileSync(getWorkdirPath('config.toml'), 'utf-8'),
 ) as Config;
 
-// Check the types
 assert(
-  config.some_text_setting && typeof config.some_text_setting === 'string',
-  'some_text_setting is required.',
+  config.guild_ids && Array.isArray(config.guild_ids),
+  'guild_ids is required.',
 );

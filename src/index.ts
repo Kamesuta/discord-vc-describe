@@ -1,23 +1,44 @@
 import { logger } from './utils/log.js';
-import { config } from './utils/config.js';
-import { sleep } from './utils/utils.js';
+import { nowait } from './utils/utils.js';
+import { Client, Events, GatewayIntentBits } from 'discord.js';
+import CommandHandler from './commands/CommandHandler.js';
+import { registerVoiceStatusHandler } from './voiceStatusHandler.js';
+import { DISCORD_TOKEN } from './env.js';
+import commands from './commands/commands.js';
 
 /**
- * Main process
- * @returns Promise
+ * Discord Client
  */
-async function main(): Promise<void> {
-  // Output a log message on startup
-  logger.info('Hello, world! こんにちは、世界！ 你好，世界！ नमस्ते, दुनिया!');
+export const client: Client = new Client({
+  // Botで使うGetwayIntents、partials
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates],
+});
 
-  // Wait for 1 second
-  await sleep(1000);
+/**
+ * Command Handler
+ */
+const commandHandler = new CommandHandler(commands);
 
-  // Log an output
-  logger.info('Hello, world after 1 second!');
+// -----------------------------------------------------------------------------------------------------------
+// Register interaction handlers
+// -----------------------------------------------------------------------------------------------------------
+client.on(
+  Events.ClientReady,
+  nowait(async () => {
+    logger.info(`${client.user?.username ?? 'Unknown'} として起動しました!`);
 
-  // Output the configuration
-  logger.info(`config.some_text_setting: ${config.some_text_setting}`);
-}
+    // コマンドを登録
+    await commandHandler.registerCommands();
 
-void main();
+    logger.info(`インタラクションの登録が完了しました`);
+  }),
+);
+client.on(
+  Events.InteractionCreate,
+  nowait(commandHandler.onInteractionCreate.bind(commandHandler)),
+);
+
+registerVoiceStatusHandler();
+
+// Discordにログインする
+await client.login(DISCORD_TOKEN);
