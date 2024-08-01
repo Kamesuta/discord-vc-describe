@@ -1,2 +1,11 @@
 # サーバーID
 guild_ids = ["0000000000000000000"]
+
+# ステータスメッセージをつけるべき人数
+num_user_to_describe = 5
+
+# ステータスメッセージを設定するべき時間 (分)
+minute_to_set_status = 10
+
+# ステータスメッセージを変更するべき時間 (分)
+minute_to_modify_status = 60

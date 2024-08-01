@@ -16,6 +16,15 @@ export interface Config {
   /** サーバーID */
   guild_ids: string[];
 
+  /** ステータスメッセージをつけるべき人数 */
+  num_user_to_describe: number;
+
+  /** ステータスメッセージを設定するべき時間 (分) */
+  minute_to_set_status: number;
+
+  /** ステータスメッセージを変更するべき時間 (分) */
+  minute_to_modify_status: number;
+
   /* eslint-enable @typescript-eslint/naming-convention */
 }
 

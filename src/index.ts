@@ -2,9 +2,13 @@ import { logger } from './utils/log.js';
 import { nowait } from './utils/utils.js';
 import { Client, Events, GatewayIntentBits } from 'discord.js';
 import CommandHandler from './commands/CommandHandler.js';
-import { registerVoiceStatusHandler } from './voiceStatusHandler.js';
+import {
+  onVoiceChannelStatusUpdate,
+  registerVoiceStatusHandler,
+} from './voice_status_handler.js';
 import { DISCORD_TOKEN } from './env.js';
 import commands from './commands/commands.js';
+import { onVoiceStateUpdate, onVoiceStatusUpdate } from './voice_handler.js';
 
 /**
  * Discord Client
@@ -37,6 +41,8 @@ client.on(
   Events.InteractionCreate,
   nowait(commandHandler.onInteractionCreate.bind(commandHandler)),
 );
+client.on(Events.VoiceStateUpdate, nowait(onVoiceStateUpdate));
+onVoiceChannelStatusUpdate.push(nowait(onVoiceStatusUpdate));
 
 registerVoiceStatusHandler();
 

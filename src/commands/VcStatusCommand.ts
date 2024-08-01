@@ -1,14 +1,12 @@
 import {
-  ActionRowBuilder,
-  ButtonBuilder,
   ChatInputCommandInteraction,
   RepliableInteraction,
   SlashCommandSubcommandBuilder,
 } from 'discord.js';
 import { SubcommandInteraction } from './base/command_base.js';
 import vcCommand from './VcCommand.js';
-import { setVoiceStatus } from '../voiceStatusHandler.js';
-import vcStatusButtonAction from './VcStatusButtonAction.js';
+import { setVoiceStatus } from '../voice_status_handler.js';
+import { onVoiceStatusUpdate } from '../voice_handler.js';
 
 class VcStatusCommand extends SubcommandInteraction {
   command = new SlashCommandSubcommandBuilder()
@@ -93,13 +91,12 @@ class VcStatusCommand extends SubcommandInteraction {
 
     // メッセージを送信
     await interaction.reply({
-      content: `チャンネルステータスを「${message}」に設定しました`,
-      components: [
-        new ActionRowBuilder<ButtonBuilder>().addComponents(
-          vcStatusButtonAction.create(),
-        ),
-      ],
+      content: `<@${interaction.user.id}> がチャンネルステータスを「${message}」に設定しました`,
+      allowedMentions: { users: [] },
     });
+
+    // イベントを呼び出し
+    await onVoiceStatusUpdate(vcChannel.id, message);
   }
 }
 

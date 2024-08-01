@@ -22,6 +22,14 @@ const CHANNEL_STATUSES = 'CHANNEL_STATUSES' as GatewayDispatchEvents;
 let statuses: Record<Snowflake, string | null> = {};
 
 /**
+ * ボイスチャンネルのステータスが更新されたときのイベントハンドラー
+ */
+export const onVoiceChannelStatusUpdate: ((
+  channel: string,
+  message: string | null,
+) => void)[] = [];
+
+/**
  * ボイスチャンネルのステータス
  */
 interface VoiceChannelStatus {
@@ -51,6 +59,11 @@ export function registerVoiceStatusHandler(): void {
 
     // ステータスが変更されたら記録
     statuses[data.id] = data.status;
+
+    // イベントハンドラーを呼び出す
+    onVoiceChannelStatusUpdate.forEach((handler) =>
+      handler(data.id, data.status),
+    );
   });
 
   // 全チャンネルのステータスを取得するハンドラーを登録
