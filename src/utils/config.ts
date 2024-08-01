@@ -16,6 +16,12 @@ export interface Config {
   /** サーバーID */
   guild_ids: string[];
 
+  /** 催促対象のVCカテゴリID */
+  vc_category_ids: string[];
+
+  /** 催促から除外するVCチャンネルID */
+  exclude_vc_channel_ids: string[];
+
   /** ステータスメッセージをつけるべき人数 */
   num_user_to_describe: number;
 

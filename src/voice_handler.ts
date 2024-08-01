@@ -33,6 +33,15 @@ async function updateVoiceChannel(
     }
   }
 
+  // 対象のカテゴリにいるか確認
+  if (!channel.parentId || !config.vc_category_ids.includes(channel.parentId)) {
+    return;
+  }
+  // 除外対象のチャンネルか確認
+  if (config.exclude_vc_channel_ids.includes(channel.id)) {
+    return;
+  }
+
   // NUM_USER_TO_DESCRIBE人以上の場合はステータスメッセージを更新するように促す
   if (channel.members.size >= config.num_user_to_describe) {
     // Jobがなければ

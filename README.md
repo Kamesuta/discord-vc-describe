@@ -24,6 +24,12 @@
 # サーバーID
 guild_ids = ["0000000000000000000"]
 
+# 催促対象のVCカテゴリID
+vc_category_ids = ["0000000000000000000"]
+
+# 催促から除外するVCチャンネルID
+exclude_vc_channel_ids = ["0000000000000000000"]
+
 # ステータスメッセージをつけるべき人数
 num_user_to_describe = 5
 
