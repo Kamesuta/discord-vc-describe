@@ -78,7 +78,11 @@ class VcStatusCommand extends SubcommandInteraction {
     }
 
     // 権限をチェック
-    if (!member.permissions.has(1n << 48n /* SetVoiceChannelStatus */)) {
+    if (
+      !member
+        .permissionsIn(vcChannel)
+        .has(1n << 48n /* SetVoiceChannelStatus */)
+    ) {
       await interaction.reply({
         ephemeral: true,
         content: 'チャンネルステータスを設定する権限がありません',
