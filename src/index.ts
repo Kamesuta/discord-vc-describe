@@ -41,7 +41,7 @@ client.on(
   Events.InteractionCreate,
   nowait(commandHandler.onInteractionCreate.bind(commandHandler)),
 );
-client.on(Events.VoiceStateUpdate, nowait(onVoiceStateUpdate));
+client.on(Events.VoiceStateUpdate, onVoiceStateUpdate);
 onVoiceChannelStatusUpdate.push(nowait(onVoiceStatusUpdate));
 
 registerVoiceStatusHandler();

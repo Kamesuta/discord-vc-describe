@@ -4,6 +4,38 @@ import { getWorkdirPath } from './workdir.js';
 import { copyFileSync, existsSync, readFileSync } from 'fs';
 
 /**
+ * ステータスメッセージ設定
+ */
+export interface StatusMessageConfig {
+  /* eslint-disable @typescript-eslint/naming-convention */
+  /** ステータスメッセージをつけるべき人数 */
+  num_user_to_describe: number;
+
+  /** ステータスメッセージを設定するべき時間 (分) */
+  minute_to_set_status: number;
+
+  /** ステータスメッセージを変更するべき時間 (分) */
+  minute_to_modify_status: number;
+  /* eslint-enable @typescript-eslint/naming-convention */
+}
+
+/**
+ * 画面共有設定
+ */
+export interface ScreenShareConfig {
+  /* eslint-disable @typescript-eslint/naming-convention */
+  /** 画面共有催促をするべき最小人数 */
+  min_users_for_prompt: number;
+
+  /** 画面共有催促をするまでの時間 (分) */
+  minute_to_prompt: number;
+
+  /** 必要な画面共有人数の閾値 */
+  min_screen_share_users: number;
+  /* eslint-enable @typescript-eslint/naming-convention */
+}
+
+/**
  * Structure of the configuration file
  */
 export interface Config {
@@ -22,14 +54,11 @@ export interface Config {
   /** 催促から除外するVCチャンネルID */
   exclude_vc_channel_ids: string[];
 
-  /** ステータスメッセージをつけるべき人数 */
-  num_user_to_describe: number;
+  /** ステータスメッセージ設定 */
+  status_message: StatusMessageConfig;
 
-  /** ステータスメッセージを設定するべき時間 (分) */
-  minute_to_set_status: number;
-
-  /** ステータスメッセージを変更するべき時間 (分) */
-  minute_to_modify_status: number;
+  /** 画面共有設定 */
+  screen_share: ScreenShareConfig;
 
   /* eslint-enable @typescript-eslint/naming-convention */
 }

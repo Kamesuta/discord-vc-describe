@@ -1,3 +1,4 @@
+# === 共通設定 ===
 # サーバーID
 guild_ids = ["0000000000000000000"]
 
@@ -7,6 +8,8 @@ vc_category_ids = ["0000000000000000000"]
 # 催促から除外するVCチャンネルID
 exclude_vc_channel_ids = ["0000000000000000000"]
 
+# === ステータスメッセージ設定 ===
+[status_message]
 # ステータスメッセージをつけるべき人数
 num_user_to_describe = 5
 
@@ -15,3 +18,14 @@ minute_to_set_status = 10
 
 # ステータスメッセージを変更するべき時間 (分)
 minute_to_modify_status = 60
+
+# === 画面共有設定 ===
+[screen_share]
+# 画面共有催促をするべき最小人数
+min_users_for_prompt = 8
+
+# 画面共有催促をするまでの時間 (分)
+minute_to_prompt = 15
+
+# 必要な画面共有人数の閾値
+min_screen_share_users = 1
