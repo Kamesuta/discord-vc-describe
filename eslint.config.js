@@ -1,6 +1,6 @@
 // eslint.config.js
 
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+ 
 /* eslint-disable jsdoc/require-jsdoc */
 /* eslint-disable @typescript-eslint/naming-convention */
 
@@ -17,6 +17,10 @@ export default [
     eslintConfigPrettier,
     // /Plugins
     {
+        ignores: ['dist/**/*', '**/*.js'],
+    },
+    {
+        files: ['**/*.ts'],
         languageOptions: {
             parser: tseslint.parser,
             parserOptions: {
