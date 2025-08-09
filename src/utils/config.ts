@@ -32,6 +32,9 @@ export interface ScreenShareConfig {
 
   /** 必要な画面共有人数の閾値 */
   min_screen_share_users: number;
+
+  /** 画面共有案内の画像URL */
+  help_image_url: string;
   /* eslint-enable @typescript-eslint/naming-convention */
 }
 

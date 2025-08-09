@@ -6,6 +6,7 @@ import {
 } from 'discord.js';
 import { logger } from './utils/log.js';
 import vcStatusButtonAction from './commands/VcStatusButtonAction.js';
+import screenShareHelpButtonAction from './commands/ScreenShareHelpButtonAction.js';
 import { Job, scheduleJob } from 'node-schedule';
 import { getVoiceStatus } from './voice_status_handler.js';
 import { client } from './index.js';
@@ -135,6 +136,11 @@ function updateScreenSharePrompt(channel: VoiceBasedChannel): void {
         async () => {
           await channel.send({
             content: `画面共有をして、自分のゲームや作業をみんなに見せてみよう！\n-# VC外からも画面共有のプレビューが見れます。VCに来てくれる人が増えるかも？`,
+            components: [
+              new ActionRowBuilder<ButtonBuilder>().addComponents(
+                screenShareHelpButtonAction.create(),
+              ),
+            ],
             allowedMentions: { users: [] },
           });
         },
